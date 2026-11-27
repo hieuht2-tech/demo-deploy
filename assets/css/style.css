@@ -1,0 +1,78 @@
+:root{--orange:#ff7a00;--orange-dark:#e96b00;--orange-soft:#fff1e3;--ink:#292929;--page:#fffaf5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 8%,rgba(255,122,0,.08),transparent 26rem),radial-gradient(circle at 92% 35%,rgba(255,190,120,.12),transparent 24rem),var(--page)}
+.navbar{background:rgba(255,255,255,.97);box-shadow:0 3px 18px rgba(70,45,20,.08);padding:13px 0;position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px)}
+.navbar-brand{color:var(--orange)!important;font-size:25px;font-weight:800}.navbar-nav{align-items:center}
+.nav-link{color:#454545!important;font-weight:600;border-radius:22px;padding:9px 12px!important;transition:.2s}
+.nav-link:hover,.nav-link.active{color:var(--orange)!important;background:var(--orange-soft)}
+.banner{position:relative;overflow:hidden;text-align:center;padding:82px 20px;color:#fff;background:linear-gradient(110deg,rgba(191,78,0,.88),rgba(255,122,0,.83)),url("../images/poster-do-an-onl.jpg") center/cover;border-radius:0 0 34px 34px}
+.banner:after{content:"";position:absolute;width:240px;height:240px;border:34px solid rgba(255,255,255,.12);border-radius:50%;right:-55px;top:-95px}
+.banner h1{position:relative;z-index:1;font-size:clamp(30px,4vw,48px);font-weight:800;margin-bottom:12px}
+.banner p{position:relative;z-index:1;font-size:18px;margin-bottom:0}.banner .btn{position:relative;z-index:1}
+.section-title{color:#9d4700;font-weight:800;text-align:center;margin-bottom:28px}
+.food-card,.contact-form,.cart-page{background:#fff;border:1px solid rgba(255,122,0,.1);border-radius:20px;overflow:hidden;box-shadow:0 8px 26px rgba(83,53,25,.08);transition:transform .25s,box-shadow .25s}
+.food-card:hover{transform:translateY(-7px);box-shadow:0 16px 34px rgba(83,53,25,.14)}
+.food-card img{width:100%;height:220px;object-fit:cover}.card-title{font-weight:800;color:#333}
+.price{color:var(--orange-dark);font-size:21px;font-weight:800}
+.btn-orange,.order-btn{color:#fff!important;background:var(--orange);border:1px solid var(--orange);border-radius:24px;font-weight:700;padding:10px 18px;transition:.2s}
+.btn-orange:hover,.order-btn:hover{background:var(--orange-dark);border-color:var(--orange-dark);transform:translateY(-1px)}
+.btn-outline-orange{color:var(--orange);border:1px solid var(--orange);border-radius:24px}.btn-outline-orange:hover{color:#fff;background:var(--orange)}
+.contact-form{padding:28px}.contact-form h3{font-weight:800;color:#9d4700}
+.form-control{border-radius:11px;padding:11px 13px}.form-control:focus{border-color:#ffb36b;box-shadow:0 0 0 .2rem rgba(255,122,0,.14)}
+.cart-page{padding:24px}.table thead th{background:#fff0df;color:#7d3900;border-color:#ffe0c2}
+.cart-total{text-align:right;margin-top:22px}.cart-total span{color:var(--orange-dark);font-size:24px;font-weight:800}
+footer{background:#302820;color:#fff;text-align:center;padding:30px 18px;margin-top:65px}footer h4{color:#ffad60;font-weight:800}
+.account-area{position:relative;margin-left:12px}.account-trigger{width:42px;height:42px;border:0;border-radius:50%;background:var(--orange);color:white;font-weight:800;font-size:17px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(255,122,0,.25)}
+.account-menu{display:none;position:absolute;right:0;top:52px;width:285px;padding:18px;background:white;border-radius:18px;box-shadow:0 12px 38px rgba(0,0,0,.16);z-index:1100}
+.account-menu.show{display:block}.account-avatar{width:58px;height:58px;border-radius:50%;background:var(--orange-soft);color:var(--orange-dark);display:grid;place-items:center;font-size:24px;font-weight:800;margin:0 auto 10px}
+.account-menu .user-name{text-align:center;font-weight:800;margin-bottom:2px}.account-menu .user-email{text-align:center;color:#6c757d;font-size:13px;overflow-wrap:anywhere;margin-bottom:14px}
+.account-menu a,.account-menu button{display:block;width:100%;text-align:left;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:#333;text-decoration:none}
+.account-menu a:hover,.account-menu button:hover{background:var(--orange-soft);color:var(--orange-dark)}
+.success-toast{position:fixed;top:18px;right:18px;z-index:2000;background:#e8f7ed;color:#16743a;border:1px solid #b8e5c7;padding:13px 18px;border-radius:13px;box-shadow:0 8px 25px rgba(0,0,0,.12)}
+@media(max-width:991px){.navbar-nav{align-items:stretch;padding-top:10px}.account-area{margin:10px 0 0}.account-menu{left:0;right:auto}}
+@media(max-width:768px){.banner{padding:58px 16px}.food-card img{height:190px}.cart-page{padding:14px}}
+
+
+/* Phần API món ăn và đánh giá - giữ nguyên giao diện trắng cam */
+.api-search { max-width: 650px; }
+.api-food-card .card-img-top { height: 220px; object-fit: cover; }
+.review-form-box { background: #fff7ef; border-radius: 12px; padding: 18px; }
+.rating-stars { color: #f0a500; letter-spacing: 1px; }
+.review-item { padding: 14px 0; border-bottom: 1px solid #eee; }
+
+/* Chỉnh UI vừa phải, giữ nhận diện trắng/cam của học sinh. */
+:root { --orange:#b85108; --orange-dark:#944006; }
+body { min-height:100vh; display:flex; flex-direction:column; }
+main { flex:1; }
+.navbar > .container { gap:12px; flex-wrap:wrap; }
+.navbar-nav { gap:4px; }
+.nav-link { font-size:14px; }
+.navbar .account-area { margin-left:0; }
+.navbar-brand { font-size:23px; }
+.banner { padding:54px 20px; border-radius:0 0 22px 22px; }
+.banner h1 { font-size:clamp(28px,4vw,44px); }
+.page-header { padding:48px 20px; background:var(--orange-soft); border-radius:0 0 22px 22px; }
+.food-card { border:1px solid #f0e1d4; border-radius:14px; }
+.food-card:hover { transform:translateY(-3px); }
+.food-card .card-title { line-height:1.4; overflow-wrap:anywhere; }
+.food-card .card-body { padding:20px; }
+.food-card .btn { min-height:44px; }
+.cart-count { display:inline-block; min-width:19px; border-radius:10px; background:#fff1e3; color:#944006; text-align:center; font-size:12px; }
+.menu-label { color:#745a44; font-size:14px; margin-bottom:24px; padding:12px 16px; background:#fff1e3; border-radius:10px; }
+.recipe-breadcrumb { display:flex; gap:10px; flex-wrap:wrap; font-size:14px; color:#6c757d; margin-bottom:26px; }
+.recipe-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:38px; background:white; border:1px solid #f0e1d4; border-radius:16px; padding:26px; }
+.recipe-image { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; }
+.recipe-kicker { color:#944006; font-size:12px; font-weight:700; letter-spacing:1px; }
+.recipe-title { font-size:clamp(26px,3vw,38px); line-height:1.2; margin:12px 0 16px; overflow-wrap:anywhere; }
+.recipe-ingredients { padding-left:20px; margin-top:16px; }
+.recipe-ingredients li { padding-block:5px; }
+.recipe-rating { color:#945800; font-weight:600; }
+.recipe-section { margin-top:30px; padding:26px; background:white; border:1px solid #f0e1d4; border-radius:14px; }
+.recipe-directions { white-space:pre-line; line-height:1.85; margin:20px 0 0; overflow-wrap:anywhere; }
+.recipe-section .review-form-box { height:100%; }
+.review-item p { white-space:pre-wrap; overflow-wrap:anywhere; margin-top:8px; }
+#review-feedback { margin-top:12px; }
+[hidden] { display:none !important; }
+@media(max-width:991px) { .navbar > .container { justify-content:center; } .navbar-nav { justify-content:center; } .navbar .account-menu { left:auto; right:0; } }
+@media(max-width:750px) { .recipe-layout { grid-template-columns:1fr; gap:24px; padding:18px; } .recipe-image { max-height:360px; } .recipe-section { padding:20px; } .banner { padding:38px 16px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .food-card,.btn { transition:none; } }

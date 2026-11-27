@@ -1,0 +1,3 @@
+
+const user=JSON.parse(localStorage.getItem("currentUser")||"null"),info=document.getElementById("account-info");
+if(user){info.innerHTML=`<p><strong>Họ và tên:</strong> ${String(user.fullname||"").replace(/[&<>"]/g,"")}</p><p><strong>Tên đăng nhập:</strong> ${String(user.username||"").replace(/[&<>"]/g,"")}</p><p><strong>Email:</strong> ${String(user.email||"").replace(/[&<>"]/g,"")}</p>`;document.getElementById("account-login").style.display="none";document.getElementById("account-logout").style.display="block";document.getElementById("account-logout").onclick=()=>{localStorage.removeItem("currentUser");location.href="index.html";};}else{info.innerHTML='<div class="alert alert-warning">Bạn chưa đăng nhập.</div>';}

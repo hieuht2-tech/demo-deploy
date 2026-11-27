@@ -1,0 +1,86 @@
+THẦY NOTE LẠI CHO EM
+
+Hướng dùng API món ăn của em ổn, cứ phát triển tiếp trên phần đang có.
+Thầy giữ TheMealDB cho món ăn/món chay và TheCocktailDB cho đồ uống.
+Không đổi nguồn API, không đổi key đánh giá đã lưu trong trình duyệt.
+
+THẦY ĐÃ SỬA NHỮNG CHỖ NÀY
+
+- Gom CSS, JS và ảnh vào assets/css, assets/js, assets/images. Các trang HTML
+  vẫn để ngoài cùng để em dễ mở và theo dõi. Đã sửa lại đường dẫn tương ứng.
+- Chỉnh menu thống nhất giữa các trang, đánh dấu trang đang mở, hiện số món
+  trong giỏ. Chỉnh banner, khoảng cách, màu nút và bố cục card cho đều hơn.
+- Trang chi tiết chia hai cột ở màn hình lớn, một cột ở điện thoại.
+  Phần cách làm để đọc đầy đủ, không nhét trong modal có khung cuộn nhỏ nữa.
+- Sửa data-name/data-price bị lệch so với tên và giá trên một số card.
+  Bấm thêm vào giỏ giờ lấy đúng món đang thấy.
+
+Các file em nên đọc:
+
+assets/js/config.js
+  Chỗ khai báo URL API, từ khóa mặc định, ảnh dự phòng và key đánh giá.
+  Đường dẫn /v1/1 là test key công khai của nguồn cho việc học.
+
+assets/js/api.js
+  Chỗ fetch chung, kiểm tra response.ok, xử lý meals/drinks bằng null,
+  chuẩn hóa dữ liệu và lấy chi tiết theo ID. Có timeout để báo khi chờ quá lâu.
+  Món chay lấy hai nhóm Vegetarian/Vegan, gộp và bỏ ID trùng.
+
+assets/js/food-ui.js và assets/js/catalog.js
+  Tạo card, tìm kiếm, báo đang tải/không có kết quả/lỗi và nút thử lại.
+  Khi tìm liên tiếp, kết quả cũ không ghi đè kết quả mới.
+  Tên và nhận xét được đưa vào DOM bằng textContent.
+
+assets/js/monan.js, douong.js, monchay.js
+  Mỗi file chỉ chọn loại dữ liệu và các ID HTML cho trang tương ứng.
+
+chitiet.html và assets/js/detail.js
+  Card dẫn tới chitiet.html?type=meal&id=... (hoặc drink/vegetarian).
+  Trang chi tiết đọc type và id rồi gọi lookup.php để lấy nguyên liệu,
+  cách làm, ảnh và link nguồn/video nếu có. Có báo lỗi khi link sai hoặc mất mạng.
+  Chú ý: filter.php chỉ có dữ liệu tóm tắt, không đủ để render chi tiết.
+
+assets/js/reviews.js
+  Giữ đánh giá cũ theo từng nguồn, kiểm tra sao từ 1 đến 5, nhận xét không được
+  toàn khoảng trắng và tối đa 500 ký tự. Đánh giá chỉ lưu trên máy đang dùng.
+
+assets/js/app.js
+  Giữ giỏ và menu tài khoản. Đọc giỏ/currentUser hỏng không làm vỡ trang món ăn.
+  Số lượng trong giỏ là số nguyên từ 1 đến 99. Có xử lý khi không lưu được giỏ.
+
+monan.html, douong.html, dochay.html và assets/css/style.css
+  Giữ thực đơn có giá của em, chỉnh UI và nối phần công thức API sang trang chi tiết.
+  Trang chủ, giỏ, liên hệ và các trang tài khoản đã cập nhật đường dẫn/menu chung.
+  JS của trang tài khoản được tách ra file riêng, chưa viết lại chức năng tài khoản.
+
+CÓ MỘT ĐIỂM EM CẦN PHÂN BIỆT
+
+Thực đơn có giá ở phía trên là dữ liệu mẫu của quán, hiện vẫn viết trong HTML.
+Phần khám phá bên dưới là công thức lấy từ API. Hai API này không có giá bán,
+tồn kho hay chức năng đặt món, nên không tự gán giá cho công thức API.
+Nếu yêu cầu cuối khóa là toàn bộ danh sách phải fetch API, em cần chọn rõ:
+làm website khám phá công thức, hoặc có nguồn menu riêng cho việc đặt món.
+Không lấy tên công thức API ghép tùy ý với giá của thực đơn cũ.
+
+EM LÀM TIẾP THEO THỨ TỰ NÀY
+
+[ ] Chạy bằng Live Server, thử tìm món -> mở chi tiết -> tải lại trang chi tiết.
+[ ] Thử cả món ăn, món chay và đồ uống. Tìm bằng tên tiếng Anh vì dữ liệu nguồn dùng tiếng Anh.
+[ ] Tự giải thích type, id, response.ok và vì sao phải lookup từ trang chi tiết.
+[ ] Thêm mục công thức liên quan bằng API, bỏ món đang xem khỏi danh sách.
+[ ] Nếu danh sách quá dài, thêm nút Xem thêm hoặc phân trang ở phía giao diện.
+[ ] Chốt lại hướng công thức hay đặt món với thầy, rồi mới thay phần menu còn viết tay.
+[ ] Rà đăng ký/đăng nhập: trim dữ liệu, chặn tên rỗng, kiểm tra email và trùng tài khoản,
+     xử lý JSON hỏng. Hiện tài khoản còn lưu mật khẩu dạng rõ, chỉ dùng dữ liệu demo.
+[ ] Làm xử lý form liên hệ. Nút gửi hiện chưa có chức năng.
+[ ] Nếu giữ hướng đặt món, làm checkout demo và chặn đặt hàng khi giỏ trống.
+     Nút đặt hàng hiện mới thông báo, chưa gửi đơn đi đâu.
+[ ] Mở thử trên điện thoại và máy tính, xem ảnh, menu, form và Console trước khi nộp.
+
+THẦY ĐÃ KIỂM TRA
+
+- API danh sách và API chi tiết của cả hai nguồn trả dữ liệu thành công.
+- Cú pháp JS và đường dẫn file cục bộ sau khi chuyển thư mục.
+- Mô phỏng DOM: render ba danh sách, link type/id, lookup đúng nguồn, nguyên liệu,
+  đánh giá cũ, validate nhận xét, lỗi API, dữ liệu rỗng và tên/giá khi thêm giỏ.
+- Chưa kiểm tra trực quan bằng trình duyệt; em vẫn cần mở Live Server để rà giao diện.
