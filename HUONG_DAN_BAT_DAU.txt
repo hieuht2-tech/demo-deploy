@@ -1,107 +1,37 @@
-ĐỌC VÀ LÀM THEO LUỒNG API
+﻿BẮT ĐẦU VỚI BẢN MẪU FOOD MENU
 
-Mở thư mục project bằng VS Code và chạy index.html với Live Server.
-Giữ nguyên cấu trúc assets khi sao chép hoặc đưa lên hosting.
+1. Mở thư mục demo-deploy trong VS Code.
+2. Dùng Live Server mở index.html. Không mở bằng file://.
+3. Đi hai luồng:
+   - Công thức -> chi tiết -> lưu/đánh giá -> bộ sưu tập.
+   - Thực đơn demo -> giỏ -> đăng nhập -> xác nhận đơn -> lịch sử.
+4. Dùng tài khoản tự đăng ký và thông tin người nhận giả.
 
-1. NHÌN CẤU TRÚC TRƯỚC
+TÀI LIỆU GIẢNG TIẾP TỪ PROJECT HIỆN CÓ
 
-spckvinhan/
-  index.html                    Trang chủ
-  monan.html                    Thực đơn mẫu + công thức món ăn
-  douong.html                   Thực đơn mẫu + công thức đồ uống
-  dochay.html                   Thực đơn mẫu + công thức chay
-  chitiet.html                  Trang chi tiết chung, không tạo một HTML cho mỗi món
-  giohang.html                  Giỏ thực đơn mẫu
-  lienhe.html                   Form liên hệ đang chờ làm chức năng
-  dangky.html, dangnhap.html     Trang tài khoản
-  dangxuat.html, quanlytaikhoan.html
-  assets/
-    css/style.css               CSS dùng chung
-    images/                     Ảnh cũ và recipe-placeholder.svg
-    js/
-      config.js                 URL, key và cấu hình
-      api.js                    Fetch + đổi dữ liệu về object chung
-      reviews.js                Đọc/ghi đánh giá localStorage
-      food-ui.js                Tạo card và thông báo lỗi
-      catalog.js                Luồng tìm và render danh sách
-      monan.js                  Khởi tạo trang món ăn
-      douong.js                 Khởi tạo trang đồ uống
-      monchay.js                Khởi tạo trang món chay
-      detail.js                 Đọc URL, fetch và render chi tiết
-      app.js                    Giỏ và menu tài khoản dùng chung
-      dangky.js, dangnhap.js, dangxuat.js, quanlytaikhoan.js
+docs/HUONG_DAN_GIANG_DAY.html
+  Bản có thể đọc trên trình duyệt, 10 chặng/trang, ví dụ code và bài thao tác.
+docs/HUONG_DAN_GIANG_DAY.pdf
+  Bản PDF cùng nội dung để dùng khi lên lớp.
 
-2. ĐỌC CONFIG.JS -> API.JS
+TÀI LIỆU DEPLOY BẰNG GIAO DIỆN GITHUB
 
-Ví dụ món ăn:
-  search.php?s=chicken
-  JSON trả { meals: [...] }, không phải trả thẳng một mảng.
-  Không có kết quả thì meals có thể là null, cần đổi thành [] trước khi map.
+docs/HUONG_DAN_DEPLOY_GITHUB_PAGES.pdf
+  Upload đúng thư mục -> Pages master/main + root -> Actions -> Visit site.
+  Có cập nhật code, Save mờ, queued, lỗi 404, file JSON và storage khác tên miền.
+docs/HUONG_DAN_DEPLOY_GITHUB_PAGES.html
+  Bản nguồn HTML để chỉnh tài liệu và in lại khi cần.
 
-Ví dụ đồ uống:
-  filter.php?a=Non_Alcoholic cho danh sách mặc định.
-  search.php?s=lemon cho tìm theo tên; tìm kiếm này có thể gồm cả đồ uống có cồn.
-  JSON dùng drinks thay vì meals.
+FILE MẪU ĐỂ THEO LUỒNG
 
-Trong request(): tạo URL -> fetch -> kiểm tra response.ok -> await response.json().
-Trong normalize(): đổi idMeal/idDrink thành id, strMeal/strDrink thành name,
-để UI dùng một kiểu object cho cả hai nguồn.
+assets/js/config.js -> api.js -> food-ui.js -> catalog.js -> monan.js
+chitiet.html -> assets/js/detail.js
+assets/js/favorites-store.js, favorites.js, reviews.js
+assets/js/storage.js -> menu-api.js -> cart-store.js -> cart.js
+data/menu.json -> assets/js/menu.js
+assets/js/auth.js -> dangky.js/dangnhap.js
+assets/js/checkout.js -> orders.js
 
-Món chay: gọi filter.php?c=Vegetarian và filter.php?c=Vegan,
-gộp, bỏ ID trùng và tìm theo tên trên danh sách đã tải.
-Không gọi lookup cho tất cả card vì sẽ tạo quá nhiều request.
-
-Tài liệu nguồn:
-  https://www.themealdb.com/api.php
-  https://www.thecocktaildb.com/api.php
-Đang dùng test key công khai 1, không cần tự đăng ký key cho bài học này.
-
-3. ĐỌC FOOD-UI.JS -> CATALOG.JS -> MONAN.JS
-
-food-ui.js tạo DOM cho một card từ object đã normalize.
-catalog.js xử lý ô tìm kiếm và bốn trạng thái: đang tải, có dữ liệu,
-không có kết quả, lỗi có nút thử lại.
-monan.js gọi setupFoodCatalog với kind=meal và các ID của monan.html.
-Hai trang còn lại làm tương tự với kind=drink hoặc vegetarian.
-
-Thứ tự script ở trang danh sách:
-  app -> config -> api -> reviews -> food-ui -> catalog -> file khởi tạo trang
-Các file đang dùng script thường, không thêm type=module tùy ý.
-
-4. ĐỌC CHITIET.HTML -> DETAIL.JS
-
-Link trên card:
-  chitiet.html?type=meal&id=52795
-
-detail.js dùng URLSearchParams lấy type và id.
-Kiểm tra type hợp lệ, ID là số, sau đó FoodAPI.lookup(type, id).
-Meal/vegetarian gọi TheMealDB; drink gọi TheCocktailDB.
-lookup.php?i=ID mới có đủ nguyên liệu và hướng dẫn, nhất là với card từ filter.php.
-
-Clone template trong HTML, đưa chữ vào bằng textContent, ảnh vào src,
-render từng nguyên liệu thành li. Có link video/nguồn thì mới hiện nút.
-Không dùng nội dung API hoặc nhận xét để ghép thẳng vào innerHTML.
-
-5. ĐỌC REVIEWS.JS
-
-Key cũ vẫn giữ:
-  foodMenuMealReviews
-  foodMenuVegetarianReviews
-  foodMenuDrinkReviews
-
-Mỗi key chứa object: ID công thức -> mảng các nhận xét.
-Validate sao nguyên 1..5 và nhận xét sau trim từ 1..500 ký tự rồi mới lưu.
-Đây là dữ liệu localStorage, không phải POST đánh giá lên hai API công thức.
-Giỏ dùng key cart; tài khoản dùng users/currentUser như project ban đầu.
-
-6. TỰ THỬ TRƯỚC KHI VIẾT THÊM
-
-- Mở danh sách, tìm một tên tiếng Anh và bấm vào chi tiết.
-- Tải lại chi tiết, kiểm tra vẫn hiện đúng món nhờ ID trên URL.
-- Thử xóa ID hoặc đổi type trên URL: phải có thông báo, không bị trang trắng.
-- Tìm chuỗi vô nghĩa: phải hiện không có kết quả.
-- Tắt mạng rồi tìm: phải báo lỗi; bật mạng và bấm thử lại.
-- Viết nhận xét toàn dấu cách: phải chặn. Viết hợp lệ rồi tải lại: vẫn còn.
-- Thêm món thực đơn vào giỏ: tên/giá phải giống card, không nhận số lượng lẻ.
-
-Sau đó xem NOTE_REVIEW_CUA_THAY.txt và làm từng việc còn lại.
+HTML ở gốc project; CSS/JS/ảnh trong assets; dữ liệu thực đơn trong data.
+Đường dẫn tương đối giữ nguyên khi đưa cả project lên GitHub Pages.
+Bản mẫu không cần npm install hoặc npm build.

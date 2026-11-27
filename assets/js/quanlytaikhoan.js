@@ -1,3 +1,12 @@
-
-const user=JSON.parse(localStorage.getItem("currentUser")||"null"),info=document.getElementById("account-info");
-if(user){info.innerHTML=`<p><strong>Họ và tên:</strong> ${String(user.fullname||"").replace(/[&<>"]/g,"")}</p><p><strong>Tên đăng nhập:</strong> ${String(user.username||"").replace(/[&<>"]/g,"")}</p><p><strong>Email:</strong> ${String(user.email||"").replace(/[&<>"]/g,"")}</p>`;document.getElementById("account-login").style.display="none";document.getElementById("account-logout").style.display="block";document.getElementById("account-logout").onclick=()=>{localStorage.removeItem("currentUser");location.href="index.html";};}else{info.innerHTML='<div class="alert alert-warning">Bạn chưa đăng nhập.</div>';}
+"use strict";
+const account = DemoStore.currentUser();
+const accountInfo = document.getElementById('account-info');
+if (account) {
+  accountInfo.replaceChildren();
+  for (const [label, value] of [['Họ tên',account.fullname],['Tên đăng nhập',account.username],['Email',account.email]]) {
+    const line = document.createElement('p'); line.textContent = label + ': ' + (value || 'Chưa có thông tin'); accountInfo.append(line);
+  }
+  document.getElementById('account-login').hidden = true;
+  const logout = document.getElementById('account-logout'); logout.hidden = false; logout.style.display = 'inline-block';
+  logout.addEventListener('click', () => { try { DemoStore.logout(); location.href = 'index.html'; } catch (error) { showToast(error.message); } });
+} else { accountInfo.textContent = 'Bạn chưa đăng nhập.'; document.getElementById('account-logout').hidden = true; }

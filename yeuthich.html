@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Food Menu — khám phá công thức, lưu yêu thích và thực hành đặt món demo.">
+  <title>Công thức đã lưu | Food Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" aria-label="Điều hướng chính">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Food Menu<span class="brand-dot">.</span></a>
+    <button class="menu-toggle" type="button" aria-label="Mở menu điều hướng" aria-controls="primary-nav" aria-expanded="false">Menu ☰</button>
+    <div id="primary-nav" class="navbar-nav ms-auto flex-row flex-wrap gap-1">
+      <a class="nav-link" href="index.html">Trang chủ</a>
+      <a class="nav-link" href="monan.html">Món ăn</a>
+      <a class="nav-link" href="douong.html">Đồ uống</a>
+      <a class="nav-link" href="dochay.html">Món chay</a>
+      <a class="nav-link" href="yeuthich.html">Đã lưu</a>
+      <a class="nav-link" href="lienhe.html">Liên hệ</a>
+      <a class="nav-link" href="giohang.html">Giỏ <span class="cart-count" data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+<main class="container py-5"><header class="catalog-heading"><p class="eyebrow">BỘ SƯU TẬP TRÊN TRÌNH DUYỆT</p><h1>Món bạn muốn thử</h1><p class="text-secondary">Lưu ở trang chi tiết để tìm lại nhanh. Bộ sưu tập dùng trên thiết bị này, chưa đồng bộ theo tài khoản.</p></header><button id="reload-saved" type="button" class="btn btn-outline-orange mb-3">Tải lại công thức</button><p id="saved-status" role="status" aria-live="polite"></p><div id="saved-recipes" class="row g-4"></div></main>
+<footer class="demo-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><a class="footer-brand" href="index.html">Food Menu.</a><p>Chọn một công thức mới, lưu lại cảm hứng và thử một bữa ăn khác mỗi ngày.</p><span class="footer-tag">Bài mẫu Web Basic · HTML / CSS / JavaScript</span></div>
+      <div><h2>Khám phá</h2><a href="monan.html">Công thức món ăn</a><a href="douong.html">Công thức đồ uống</a><a href="dochay.html">Món chay</a><a href="yeuthich.html">Bộ sưu tập đã lưu</a></div>
+      <div><h2>Thực đơn demo</h2><a href="giohang.html">Giỏ hàng</a><a href="donhang.html">Đơn của tôi</a><a href="quanlytaikhoan.html">Tài khoản</a><a href="lienhe.html">Góp ý</a></div>
+      <div><h2>Nguồn công thức</h2><a href="https://www.themealdb.com" target="_blank" rel="noopener noreferrer">TheMealDB ↗</a><a href="https://www.thecocktaildb.com" target="_blank" rel="noopener noreferrer">TheCocktailDB ↗</a><p>Giá thực đơn là dữ liệu demo của quán. Công thức API không có giá bán.</p></div>
+    </div>
+    <div class="footer-bottom"><span>Food Menu · Sản phẩm mẫu để học và thực hành</span><span>Đơn, tài khoản và lời nhắn lưu trên trình duyệt</span></div>
+  </div>
+</footer>
+<script src="assets/js/storage.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/menu-api.js" defer></script>
+<script src="assets/js/cart-store.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+<script src="assets/js/api.js" defer></script>
+<script src="assets/js/reviews.js" defer></script>
+<script src="assets/js/food-ui.js" defer></script>
+<script src="assets/js/favorites-store.js" defer></script>
+<script src="assets/js/favorites.js" defer></script>
+</body>
+</html>

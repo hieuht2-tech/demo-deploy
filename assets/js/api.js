@@ -36,6 +36,9 @@ const FoodAPI = (() => {
 
   function normalize(item, kind) {
     const drink = kind === "drink";
+    const id = String(drink ? item.idDrink : item.idMeal);
+    const name = drink ? item.strDrink : item.strMeal;
+    if (!/^[1-9]\d{0,7}$/.test(id) || typeof name !== "string") throw new Error("API trả công thức không hợp lệ.");
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const name = String(item[`strIngredient${i}`] || "").trim();
@@ -43,8 +46,7 @@ const FoodAPI = (() => {
       if (name) ingredients.push({ name, measure });
     }
     return {
-      id: String(drink ? item.idDrink : item.idMeal), kind,
-      name: drink ? item.strDrink : item.strMeal,
+      id, kind, name,
       image: safeURL(drink ? item.strDrinkThumb : item.strMealThumb) || FOOD_CONFIG.PLACEHOLDER,
       category: item.strCategory || (kind === "vegetarian" ? "Món chay" : drink ? "Đồ uống" : "Món ăn"),
       area: item.strArea || item.strAlcoholic || "",
@@ -86,11 +88,22 @@ const FoodAPI = (() => {
     const data = await request(drink ? FOOD_CONFIG.DRINK_URL : FOOD_CONFIG.MEAL_URL, "lookup.php", { i: id });
     const item = readArray(data, drink ? "drinks" : "meals")[0];
     if (!item) throw new Error("Không tìm thấy công thức này.");
+    if (String(drink ? item.idDrink : item.idMeal) !== String(id)) throw new Error("Nguồn trả sai ID công thức.");
     if (kind === "vegetarian" && !["vegetarian", "vegan"].includes(String(item.strCategory).toLowerCase())) {
       throw new Error("Món này không nằm trong danh mục chay của nguồn.");
     }
     return normalize(item, kind);
   }
 
-  return { search, lookup };
+  async function related(item) {
+    let items;
+    if (item.kind === "vegetarian") items = (await vegetarianCatalog()).map(raw => normalize(raw, item.kind));
+    else {
+      const drink = item.kind === "drink";
+      const data = await request(drink ? FOOD_CONFIG.DRINK_URL : FOOD_CONFIG.MEAL_URL, "filter.php", { c: item.category });
+      items = readArray(data, drink ? "drinks" : "meals").map(raw => normalize(raw, item.kind));
+    }
+    return items.filter(other => other.id !== item.id).slice(0, 4);
+  }
+  return { search, lookup, related };
 })();

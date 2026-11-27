@@ -24,7 +24,13 @@ const FoodReviews = {
     if (!Number.isInteger(stars) || stars < 1 || stars > 5) throw new Error("Hãy chọn từ 1 đến 5 sao.");
     const data = this.read(kind);
     data[id] = this.list(kind, id);
-    data[id].push({ stars, comment: text, name: "Khách hàng", date: new Date().toISOString() });
+    data[id].push({ stars, comment: text, name: DemoStore.currentUser()?.fullname || "Khách", date: new Date().toISOString() });
     localStorage.setItem(FOOD_CONFIG.REVIEW_KEYS[kind], JSON.stringify(data));
+  },
+  remove(kind, id, index) {
+    const data = this.read(kind);
+    const list = this.list(kind, id);
+    list.splice(index, 1); data[id] = list;
+    DemoStore.write(FOOD_CONFIG.REVIEW_KEYS[kind], data);
   },
 };

@@ -1,24 +1,11 @@
-
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value;
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    let user = users.find(function(item) {
-        return item.username === username &&
-               item.password === password;
-    });
-
-    if (user) {
-        localStorage.setItem("currentUser", JSON.stringify(user));
-
-        sessionStorage.setItem("loginSuccess", "true");
-        window.location.href = "index.html";
-    } else {
-        document.getElementById("message").innerHTML =
-            '<div class="alert alert-danger">Tên đăng nhập hoặc mật khẩu không đúng!</div>';
-    }
+"use strict";
+const loginForm = document.getElementById('loginForm');
+loginForm.addEventListener('submit', event => {
+  event.preventDefault();
+  try {
+    if (!loginForm.reportValidity()) return;
+    DemoAuth.login(document.getElementById('username').value, document.getElementById('password').value);
+    const next = new URLSearchParams(location.search).get('next');
+    location.href = next === 'thanhtoan.html' ? next : 'quanlytaikhoan.html';
+  } catch (error) { const feedback = document.getElementById('message'); feedback.className = 'alert alert-danger mt-3'; feedback.textContent = error.message; }
 });

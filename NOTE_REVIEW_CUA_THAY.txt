@@ -1,86 +1,78 @@
-THẦY NOTE LẠI CHO EM
+﻿THẦY NOTE LẠI CHO EM
 
-Hướng dùng API món ăn của em ổn, cứ phát triển tiếp trên phần đang có.
-Thầy giữ TheMealDB cho món ăn/món chay và TheCocktailDB cho đồ uống.
-Không đổi nguồn API, không đổi key đánh giá đã lưu trong trình duyệt.
+Đây là bản mẫu Food Menu để thầy hướng dẫn học sinh phát triển tiếp từ project
+đang có. Giữ nhận diện trắng/cam, ảnh thực đơn và hai nguồn API công thức.
+Các luồng frontend đã được nối để có thể đi hết một ví dụ khi giảng.
 
-THẦY ĐÃ SỬA NHỮNG CHỖ NÀY
+NHỮNG CHỖ THẦY ĐÃ XEM VÀ CHỈNH
 
-- Gom CSS, JS và ảnh vào assets/css, assets/js, assets/images. Các trang HTML
-  vẫn để ngoài cùng để em dễ mở và theo dõi. Đã sửa lại đường dẫn tương ứng.
-- Chỉnh menu thống nhất giữa các trang, đánh dấu trang đang mở, hiện số món
-  trong giỏ. Chỉnh banner, khoảng cách, màu nút và bố cục card cho đều hơn.
-- Trang chi tiết chia hai cột ở màn hình lớn, một cột ở điện thoại.
-  Phần cách làm để đọc đầy đủ, không nhét trong modal có khung cuộn nhỏ nữa.
-- Sửa data-name/data-price bị lệch so với tên và giá trên một số card.
-  Bấm thêm vào giỏ giờ lấy đúng món đang thấy.
+Trang chủ và giao diện chung
+- Trang chủ render bốn công thức API, có đường sang thực đơn và bộ sưu tập.
+- Menu, footer và form dùng thống nhất; menu điện thoại có nút mở/đóng.
+- Bố cục chi tiết hai cột trên máy tính, một cột trên điện thoại.
 
-Các file em nên đọc:
+Danh sách và chi tiết công thức
+- Món ăn/món chay dùng TheMealDB, đồ uống dùng TheCocktailDB.
+- Tìm kiếm, sắp xếp, Xem thêm, trạng thái tải/rỗng/lỗi và nút thử lại.
+- Card truyền type và id sang chitiet.html, fetch lookup để có đủ nguyên liệu.
+- Thêm công thức liên quan, loại ID hiện tại và giữ đúng loại dữ liệu.
+- Có lưu/bỏ công thức yêu thích, xem bộ sưu tập và xóa món khỏi bộ sưu tập.
+- Đánh giá chặn sao/độ dài/nội dung toàn khoảng trắng, lưu và xóa trên máy.
 
-assets/js/config.js
-  Chỗ khai báo URL API, từ khóa mặc định, ảnh dự phòng và key đánh giá.
-  Đường dẫn /v1/1 là test key công khai của nguồn cho việc học.
+Thực đơn và giỏ demo
+- data/menu.json chứa thực đơn có giá của quán, được fetch bằng menu-api.js.
+- Không gán giá thực đơn cho công thức TheMealDB/TheCocktailDB.
+- Giỏ chỉ lưu ID + quantity; mở giỏ lấy lại tên/giá từ file JSON.
+- Tăng/giảm/xóa, số lượng nguyên 1–99, badge và giỏ trống.
+- Giỏ cũ theo tên được chuyển sang ID khi tìm được món tương ứng.
+- Phí giao demo 15.000đ, miễn từ 200.000đ, giỏ trống không tính phí.
 
-assets/js/api.js
-  Chỗ fetch chung, kiểm tra response.ok, xử lý meals/drinks bằng null,
-  chuẩn hóa dữ liệu và lấy chi tiết theo ID. Có timeout để báo khi chờ quá lâu.
-  Món chay lấy hai nhóm Vegetarian/Vegan, gộp và bỏ ID trùng.
+Tài khoản, đơn và liên hệ
+- Đăng ký kiểm tra tên, username, email trùng và xác nhận mật khẩu.
+- Đăng nhập kiểm tra thông tin, phiên chỉ giữ tên/username/email.
+- Đăng xuất, thông tin tài khoản và lịch sử đơn theo email của phiên.
+- Checkout kiểm tra đăng nhập/giỏ/form, tính lại giá trước khi lưu đơn.
+- Form sai không xóa giỏ; lưu đơn xong mới xóa giỏ và sang lịch sử.
+- Form liên hệ validate và lưu lời nhắn demo, ghi rõ chưa gửi email/server.
 
-assets/js/food-ui.js và assets/js/catalog.js
-  Tạo card, tìm kiếm, báo đang tải/không có kết quả/lỗi và nút thử lại.
-  Khi tìm liên tiếp, kết quả cũ không ghi đè kết quả mới.
-  Tên và nhận xét được đưa vào DOM bằng textContent.
+THỨ TỰ FILE ĐỂ GIẢNG
 
-assets/js/monan.js, douong.js, monchay.js
-  Mỗi file chỉ chọn loại dữ liệu và các ID HTML cho trang tương ứng.
+1. monan.html + assets/css/style.css: nhìn khung UI và các ID trước.
+2. config.js -> api.js: cấu hình, fetch, HTTP, JSON, chuẩn hóa object.
+3. food-ui.js -> catalog.js -> monan.js: object thành card, tìm/sắp xếp/Xem thêm.
+4. chitiet.html -> detail.js: type/ID, lookup, template, nguyên liệu và liên quan.
+5. favorites-store.js, favorites.js, reviews.js: dữ liệu tương tác local.
+6. data/menu.json -> menu-api.js -> menu.js: fetch file JSON của quán.
+7. storage.js -> cart-store.js -> cart.js: lưu ID, kiểm tra số lượng và tính tiền.
+8. auth.js, dangky.js, dangnhap.js: validate và tài khoản demo.
+9. checkout.js -> orders.js -> contact.js: hoàn thành một luồng thao tác.
 
-chitiet.html và assets/js/detail.js
-  Card dẫn tới chitiet.html?type=meal&id=... (hoặc drink/vegetarian).
-  Trang chi tiết đọc type và id rồi gọi lookup.php để lấy nguyên liệu,
-  cách làm, ảnh và link nguồn/video nếu có. Có báo lỗi khi link sai hoặc mất mạng.
-  Chú ý: filter.php chỉ có dữ liệu tóm tắt, không đủ để render chi tiết.
+TÀI LIỆU ĐI KÈM
 
-assets/js/reviews.js
-  Giữ đánh giá cũ theo từng nguồn, kiểm tra sao từ 1 đến 5, nhận xét không được
-  toàn khoảng trắng và tối đa 500 ký tự. Đánh giá chỉ lưu trên máy đang dùng.
+- docs/HUONG_DAN_GIANG_DAY.html: đọc trên trình duyệt, có đoạn code ngắn để giảng.
+- docs/HUONG_DAN_GIANG_DAY.pdf: bản 10 trang để thầy mở khi dạy hoặc gửi học sinh.
+- docs/HUONG_DAN_DEPLOY_GITHUB_PAGES.pdf: bản 7 trang hướng dẫn thao tác UI GitHub.
+- docs/HUONG_DAN_DEPLOY_GITHUB_PAGES.html: bản nguồn có thể mở, chỉnh và in lại.
 
-assets/js/app.js
-  Giữ giỏ và menu tài khoản. Đọc giỏ/currentUser hỏng không làm vỡ trang món ăn.
-  Số lượng trong giỏ là số nguyên từ 1 đến 99. Có xử lý khi không lưu được giỏ.
+CÁCH CHO HỌC SINH THEO BÀI
 
-monan.html, douong.html, dochay.html và assets/css/style.css
-  Giữ thực đơn có giá của em, chỉnh UI và nối phần công thức API sang trang chi tiết.
-  Trang chủ, giỏ, liên hệ và các trang tài khoản đã cập nhật đường dẫn/menu chung.
-  JS của trang tài khoản được tách ra file riêng, chưa viết lại chức năng tài khoản.
+Không gõ lại cả project từ đầu. Mở đúng file, chỉ ra phần đã có, giải thích
+một luồng nhỏ rồi cho học sinh tự thay đổi và chạy thử.
 
-CÓ MỘT ĐIỂM EM CẦN PHÂN BIỆT
+Buổi 1: nhận diện UI và request API, phân biệt object/mảng/null.
+Buổi 2: render danh sách, chi tiết theo URL, xử lý lỗi và công thức liên quan.
+Buổi 3: bộ sưu tập/đánh giá, JSON local và giỏ theo ID.
+Buổi 4: validate, tài khoản, checkout và tự trình bày luồng hoàn chỉnh.
 
-Thực đơn có giá ở phía trên là dữ liệu mẫu của quán, hiện vẫn viết trong HTML.
-Phần khám phá bên dưới là công thức lấy từ API. Hai API này không có giá bán,
-tồn kho hay chức năng đặt món, nên không tự gán giá cho công thức API.
-Nếu yêu cầu cuối khóa là toàn bộ danh sách phải fetch API, em cần chọn rõ:
-làm website khám phá công thức, hoặc có nguồn menu riêng cho việc đặt món.
-Không lấy tên công thức API ghép tùy ý với giá của thực đơn cũ.
+Nếu học sinh đã biết một phần, đi thẳng vào chặng tiếp theo; không bắt dựng
+lại HTML/CSS chỉ để giống bài mẫu. Tài liệu có ví dụ rút gọn để hiểu ý, đối chiếu
+file đầy đủ trước khi sửa code.
 
-EM LÀM TIẾP THEO THỨ TỰ NÀY
+LƯU Ý VỀ BẢN MẪU
 
-[ ] Chạy bằng Live Server, thử tìm món -> mở chi tiết -> tải lại trang chi tiết.
-[ ] Thử cả món ăn, món chay và đồ uống. Tìm bằng tên tiếng Anh vì dữ liệu nguồn dùng tiếng Anh.
-[ ] Tự giải thích type, id, response.ok và vì sao phải lookup từ trang chi tiết.
-[ ] Thêm mục công thức liên quan bằng API, bỏ món đang xem khỏi danh sách.
-[ ] Nếu danh sách quá dài, thêm nút Xem thêm hoặc phân trang ở phía giao diện.
-[ ] Chốt lại hướng công thức hay đặt món với thầy, rồi mới thay phần menu còn viết tay.
-[ ] Rà đăng ký/đăng nhập: trim dữ liệu, chặn tên rỗng, kiểm tra email và trùng tài khoản,
-     xử lý JSON hỏng. Hiện tài khoản còn lưu mật khẩu dạng rõ, chỉ dùng dữ liệu demo.
-[ ] Làm xử lý form liên hệ. Nút gửi hiện chưa có chức năng.
-[ ] Nếu giữ hướng đặt món, làm checkout demo và chặn đặt hàng khi giỏ trống.
-     Nút đặt hàng hiện mới thông báo, chưa gửi đơn đi đâu.
-[ ] Mở thử trên điện thoại và máy tính, xem ảnh, menu, form và Console trước khi nộp.
-
-THẦY ĐÃ KIỂM TRA
-
-- API danh sách và API chi tiết của cả hai nguồn trả dữ liệu thành công.
-- Cú pháp JS và đường dẫn file cục bộ sau khi chuyển thư mục.
-- Mô phỏng DOM: render ba danh sách, link type/id, lookup đúng nguồn, nguyên liệu,
-  đánh giá cũ, validate nhận xét, lỗi API, dữ liệu rỗng và tên/giá khi thêm giỏ.
-- Chưa kiểm tra trực quan bằng trình duyệt; em vẫn cần mở Live Server để rà giao diện.
+- Hoàn thiện luồng frontend ở mức demo; chưa có backend, thanh toán hay giao hàng thật.
+- Tài khoản lưu mật khẩu dạng rõ trong users để học localStorage, chỉ dùng mật khẩu giả.
+- Bộ sưu tập/đánh giá lưu chung trên trình duyệt, chưa chia riêng theo tài khoản.
+- Đơn và lời nhắn chỉ lưu trên máy; không nhập thông tin khách hàng thật.
+- Localhost và tên miền GitHub Pages có storage khác nhau; dữ liệu không tự chuyển.
+- Thực đơn JSON là dữ liệu quán demo, công thức API là dữ liệu tham khảo riêng.

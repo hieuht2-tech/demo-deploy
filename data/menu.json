@@ -1,0 +1,98 @@
+[
+  {
+    "id": "menu-1",
+    "kind": "meal",
+    "name": "Phở Bò",
+    "description": "Nước dùng đậm đà, thịt bò mềm.",
+    "price": 55000,
+    "image": "assets/images/phobo.webp"
+  },
+  {
+    "id": "menu-2",
+    "kind": "meal",
+    "name": "Cơm Gà",
+    "description": "Gà chiên giòn, cơm thơm.",
+    "price": 59000,
+    "image": "assets/images/comga1.webp"
+  },
+  {
+    "id": "menu-3",
+    "kind": "meal",
+    "name": "Mì Xào Hải Sản",
+    "description": "Tôm, mực và rau tươi.",
+    "price": 65000,
+    "image": "assets/images/mixao.webp"
+  },
+  {
+    "id": "menu-4",
+    "kind": "meal",
+    "name": "Bún Bò Huế",
+    "description": "Hương vị cay thơm đặc trưng.",
+    "price": 50000,
+    "image": "assets/images/bunbo.jpg"
+  },
+  {
+    "id": "menu-5",
+    "kind": "meal",
+    "name": "Khoai Tây Chiên",
+    "description": "Giòn ngon, hấp dẫn.",
+    "price": 30000,
+    "image": "assets/images/khoaitaychien.jpg"
+  },
+  {
+    "id": "menu-6",
+    "kind": "meal",
+    "name": "Pizza",
+    "description": "Phô mai béo thơm.",
+    "price": 99000,
+    "image": "assets/images/pizza.jpg"
+  },
+  {
+    "id": "menu-7",
+    "kind": "drink",
+    "name": "Trà Sữa",
+    "description": "Trà sữa truyền thống thơm ngon.",
+    "price": 35000,
+    "image": "assets/images/tra_sua.jpg"
+  },
+  {
+    "id": "menu-8",
+    "kind": "drink",
+    "name": "Cà Phê",
+    "description": "Cà phê nguyên chất đậm vị.",
+    "price": 30000,
+    "image": "assets/images/caphe.png"
+  },
+  {
+    "id": "menu-9",
+    "kind": "drink",
+    "name": "Nước Cam",
+    "description": "Cam tươi nguyên chất.",
+    "price": 28000,
+    "image": "assets/images/nuocepcam2.jpg"
+  },
+  {
+    "id": "menu-10",
+    "kind": "drink",
+    "name": "Sinh Tố Xoài",
+    "description": "Xoài chín thơm ngon.",
+    "price": 40000,
+    "image": "assets/images/nuocepxoai.jpg"
+  },
+  {
+    "id": "menu-11",
+    "kind": "drink",
+    "name": "Trà Sen Vàng",
+    "description": "Thơm mát, dễ uống.",
+    "price": 39000,
+    "image": "assets/images/trasenvang.webp"
+  },
+  {
+    "id": "menu-12",
+    "kind": "drink",
+    "name": "Coca Cola",
+    "description": "Mát lạnh, sảng khoái.",
+    "price": 20000,
+    "image": "assets/images/coca.jpg"
+  }
+]
